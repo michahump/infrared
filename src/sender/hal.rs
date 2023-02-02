@@ -36,7 +36,7 @@ where
     }
 
     /// Method to be called periodically to update the pwm output
-    pub fn tick(&mut self) {
+    pub fn tick(&mut self) -> Status {
         let status = self.buffer.tick(self.counter);
         self.counter = self.counter.wrapping_add(1);
 
@@ -46,5 +46,7 @@ where
             Status::Idle => self.pin.disable(),
             Status::Error => self.pin.disable(),
         };
+
+        status
     }
 }
